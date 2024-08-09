@@ -34,6 +34,9 @@ def shaderChange():
         cmds.connectAttr(aiUserDataColor + '.outColor', aiMultiply + '.input1')
         # connect the new aiMultiply node to the base color of the aiStandardSurface
         cmds.connectAttr(aiMultiply + '.outColor', aiStandardSurface + '.baseColor')
+        #set specular roughness to 1
+        cmds.setAttr(aiStandardSurface + '.specularRoughness', 1)
+
 
 def deleteUnusedNodes():
     # delete unused nodes
@@ -47,6 +50,8 @@ def vertColorOn():
             continue
         for shape in shapes:
             mel.eval('setAttr "' + shape + '.aiExportColors" 1;')
+            mel.eval('setAttr "' + shape + '.castsShadows" 0;')
+
 
 # Check if selected is empty
 if not selected:
